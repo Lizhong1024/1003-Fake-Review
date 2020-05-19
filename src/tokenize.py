@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import spacy
+from itertools import chain
 import pickle as pkl
 
 def tokenize(data):
@@ -25,6 +26,10 @@ def tokenize(data):
         data_tokenized.append(tokens)
 
     return data_tokenized
+
+
+def get_all_train_tokens(train_data_tokens):
+    return list(chain.from_iterable(train_data_tokens))
 
 
 def get_vocab_set(data_tokenized):
@@ -52,10 +57,10 @@ def main(train_path, val_path, test_path):
     test_data_tokens = tokenize(test.review.values)
     pkl.dump(test_data_tokens, open("data/test_data_tokens.pkl", "wb"))
 
-    # Vocab
-    print("Creating vocab set")
-    all_train_tokens = get_vocab_set(train_data_tokens)
-    pkl.dump(all_train_tokens, open("data/all_train_tokens.pkl", "wb"))
+    # # Vocab
+    # print("Creating vocab set")
+    # all_train_tokens = get_vocab_set(train_data_tokens)
+    # pkl.dump(all_train_tokens, open("data/all_train_tokens.pkl", "wb"))
 
     print("Finished")
 
